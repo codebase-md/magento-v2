@@ -1,5 +1,5 @@
 <?php
-namespace QuickPay\Gateway\Model\Adapter;
+namespace UnzerDirect\Gateway\Model\Adapter;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Locale\ResolverInterface;
@@ -15,18 +15,18 @@ use Zend_Locale;
 use Magento\Sales\Model\ResourceModel\Order\Tax\Item;
 
 /**
- * Class QuickPayAdapter
+ * Class UnzerDirectAdapter
  */
-class QuickPayAdapter
+class UnzerDirectAdapter
 {
-    const PUBLIC_KEY_XML_PATH      = 'payment/quickpay_gateway/apikey';
-    const TRANSACTION_FEE_XML_PATH = 'payment/quickpay_gateway/transaction_fee';
-    const AUTOCAPTURE_XML_PATH = 'payment/quickpay_gateway/autocapture';
-    const TEXT_ON_STATEMENT_XML_PATH = 'payment/quickpay_gateway/text_on_statement';
-    const PAYMENT_METHODS_XML_PATH = 'payment/quickpay_gateway/payment_methods';
-    const SPECIFIED_PAYMENT_METHOD_XML_PATH = 'payment/quickpay_gateway/payment_method_specified';
-    const BRANDING_ID_XML_PATH = 'payment/quickpay_gateway/branding_id';
-    const TEST_MODE_XML_PATH = 'payment/quickpay_gateway/testmode';
+    const PUBLIC_KEY_XML_PATH      = 'payment/unzerdirect_gateway/apikey';
+    const TRANSACTION_FEE_XML_PATH = 'payment/unzerdirect_gateway/transaction_fee';
+    const AUTOCAPTURE_XML_PATH = 'payment/unzerdirect_gateway/autocapture';
+    const TEXT_ON_STATEMENT_XML_PATH = 'payment/unzerdirect_gateway/text_on_statement';
+    const PAYMENT_METHODS_XML_PATH = 'payment/unzerdirect_gateway/payment_methods';
+    const SPECIFIED_PAYMENT_METHOD_XML_PATH = 'payment/unzerdirect_gateway/payment_method_specified';
+    const BRANDING_ID_XML_PATH = 'payment/unzerdirect_gateway/branding_id';
+    const TEST_MODE_XML_PATH = 'payment/unzerdirect_gateway/testmode';
 
     /**
      * @var LoggerInterface
@@ -79,7 +79,7 @@ class QuickPayAdapter
     protected $taxItem;
 
     /**
-     * QuickPayAdapter constructor.
+     * UnzerDirectAdapter constructor.
      *
      * @param LoggerInterface $logger
      * @param UrlInterface $url
@@ -110,7 +110,7 @@ class QuickPayAdapter
         $this->dir = $dir;
         $this->taxItem = $taxItem;
 
-        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/quickpay.log'));
+        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/unzerdirect.log'));
     }
 
     /**
@@ -137,7 +137,7 @@ class QuickPayAdapter
                 $form['text_on_statement'] = $textOnStatement;
             }
 
-            if($order->getPayment()->getMethod() != \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
+            if($order->getPayment()->getMethod() != \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
                 $shippingAddress = $order->getShippingAddress();
 
                 $taxItems = $this->taxItem->getTaxItemsByOrderId($order->getId());
@@ -201,7 +201,7 @@ class QuickPayAdapter
 
             $form['shopsystem'] = [];
             $form['shopsystem']['name'] = 'Magento 2';
-            $form['shopsystem']['version'] = $this->moduleResource->getDbVersion('QuickPay_Gateway');
+            $form['shopsystem']['version'] = $this->moduleResource->getDbVersion('UnzerDirect_Gateway');
 
             $payments = $client->request->post('/payments', $form);
 
@@ -216,15 +216,15 @@ class QuickPayAdapter
 
             $paymentId = $paymentArray['id'];
 
-            if($order->getPayment()->getMethod() == \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE_KLARNA) {
+            if($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_KLARNA) {
                 $paymentMethods = 'klarna-payments';
-            } elseif($order->getPayment()->getMethod() == \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE_MOBILEPAY) {
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_MOBILEPAY) {
                 $paymentMethods = 'mobilepay';
-            } elseif($order->getPayment()->getMethod() == \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE_VIPPS){
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_VIPPS){
                 $paymentMethods = 'vipps';
-            } elseif($order->getPayment()->getMethod() == \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
                 $paymentMethods = 'paypal';
-            } elseif($order->getPayment()->getMethod() == \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE_VIABILL) {
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_VIABILL) {
                 $paymentMethods = 'viabill';
             } else {
                 $paymentMethods = $this->getPaymentMethods();
@@ -232,9 +232,9 @@ class QuickPayAdapter
 
             $parameters = [
                 "amount"             => $order->getTotalDue() * 100,
-                "continueurl"        => $this->url->getUrl('quickpaygateway/payment/returns'),
-                "cancelurl"          => $this->url->getUrl('quickpaygateway/payment/cancel'),
-                "callbackurl"        => $this->url->getUrl('quickpaygateway/payment/callback'),
+                "continueurl"        => $this->url->getUrl('unzerdirect/payment/returns'),
+                "cancelurl"          => $this->url->getUrl('unzerdirect/payment/cancel'),
+                "callbackurl"        => $this->url->getUrl('unzerdirect/payment/callback'),
                 "customer_email"     => $order->getCustomerEmail(),
                 "autocapture"        => $this->scopeConfig->isSetFlag(self::AUTOCAPTURE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
                 "payment_methods"    => $paymentMethods,
@@ -245,9 +245,9 @@ class QuickPayAdapter
             ];
 
             if($area == 'adminhtml'){
-                $parameters['continueurl'] = $this->url->getBaseUrl().'quickpaygateway/payment/returns?area=admin';
-                $parameters['cancelurl'] = $this->url->getBaseUrl().'quickpaygateway/payment/cancel?area=admin';
-                $parameters['callbackurl'] = $this->url->getBaseUrl().'quickpaygateway/payment/callback';
+                $parameters['continueurl'] = $this->url->getBaseUrl().'unzerdirect/payment/returns?area=admin';
+                $parameters['cancelurl'] = $this->url->getBaseUrl().'unzerdirect/payment/cancel?area=admin';
+                $parameters['callbackurl'] = $this->url->getBaseUrl().'unzerdirect/payment/callback';
             }
 
             //Create payment link and return payment id
@@ -296,7 +296,7 @@ class QuickPayAdapter
 
             $form['shopsystem'] = [];
             $form['shopsystem']['name'] = 'Magento 2';
-            $form['shopsystem']['version'] = $this->moduleResource->getDbVersion('QuickPay_Gateway');
+            $form['shopsystem']['version'] = $this->moduleResource->getDbVersion('UnzerDirect_Gateway');
 
             //Build basket array
             $form['basket'] = [];
@@ -331,9 +331,9 @@ class QuickPayAdapter
 
             $parameters = [
                 "amount"             => $quote->getGrandTotal() * 100,
-                "continueurl"        => $this->url->getUrl('quickpaygateway/payment/returns'),
-                "cancelurl"          => $this->url->getUrl('quickpaygateway/payment/cancel'),
-                "callbackurl"        => $this->url->getUrl('quickpaygateway/payment/callback'),
+                "continueurl"        => $this->url->getUrl('unzerdirect/payment/returns'),
+                "cancelurl"          => $this->url->getUrl('unzerdirect/payment/cancel'),
+                "callbackurl"        => $this->url->getUrl('unzerdirect/payment/callback'),
                 "invoice_address_selection" => 1,
                 "shipping_address_selection" => 1,
                 "customer_email"     => $quote->getCustomerEmail(),
@@ -395,12 +395,12 @@ class QuickPayAdapter
             foreach($paymentArray['operations'] as $operation){
                 if($operation['type'] == 'capture' && !empty($operation['qp_status_code'])){
                     if(in_array($operation['qp_status_code'], $this->errorCodes)){
-                        throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: '.$operation['qp_status_msg']));
+                        throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
                     }
                 }
             }
         } else {
-            throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: Error.'));
+            throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: Error.'));
         }
 
         return $this;
@@ -430,12 +430,12 @@ class QuickPayAdapter
             foreach($paymentArray['operations'] as $operation){
                 if($operation['type'] == 'cancel' && !empty($operation['qp_status_code'])){
                     if(in_array($operation['qp_status_code'], $this->errorCodes)){
-                        throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: '.$operation['qp_status_msg']));
+                        throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
                     }
                 }
             }
         } else {
-            throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: Error.'));
+            throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: Error.'));
         }
 
         return $this;
@@ -468,12 +468,12 @@ class QuickPayAdapter
             foreach($paymentArray['operations'] as $operation){
                 if($operation['type'] == 'refund' && !empty($operation['qp_status_code'])){
                     if(in_array($operation['qp_status_code'], $this->errorCodes)){
-                        throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: '.$operation['qp_status_msg']));
+                        throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
                     }
                 }
             }
         } else {
-            throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: Error.'));
+            throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: Error.'));
         }
 
         return $this;

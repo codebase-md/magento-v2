@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Model\Config\Source;
+namespace UnzerDirect\Gateway\Model\Config\Source;
 
 use Magento\Framework\Data\Form\Element\AbstractElement;
 
@@ -39,7 +39,7 @@ class Version extends \Magento\Config\Block\System\Config\Form\Field
     protected function _getElementHtml(AbstractElement $element)
     {
         $html = parent::_getElementHtml($element);
-        $version = $this->_moduleResource->getDbVersion('QuickPay_Gateway');
+        $version = $this->_moduleResource->getDbVersion('UnzerDirect_Gateway');
         $html .= '<strong>'.$version.'</strong>';
         return $html;
     }

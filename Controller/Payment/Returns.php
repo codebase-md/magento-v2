@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Controller\Payment;
+namespace UnzerDirect\Gateway\Controller\Payment;
 
 class Returns extends \Magento\Framework\App\Action\Action
 {

@@ -1,5 +1,5 @@
 <?php
-namespace QuickPay\Gateway\Model\Ui;
+namespace UnzerDirect\Gateway\Model\Ui;
 
 use Magento\Checkout\Model\ConfigProviderInterface;
 
@@ -8,15 +8,15 @@ use Magento\Checkout\Model\ConfigProviderInterface;
  */
 final class ConfigProvider implements ConfigProviderInterface
 {
-    const CODE = 'quickpay_gateway';
-    const CODE_KLARNA = 'quickpay_klarna';
-    const CODE_APPLEPAY = 'quickpay_applepay';
-    const CODE_MOBILEPAY = 'quickpay_mobilepay';
-    const CODE_VIPPS= 'quickpay_vipps';
-    const CODE_PAYPAL = 'quickpay_paypal';
-    const CODE_VIABILL = 'quickpay_viabill';
+    const CODE = 'unzerdirect_gateway';
+    const CODE_KLARNA = 'unzerdirect_klarna';
+    const CODE_APPLEPAY = 'unzerdirect_applepay';
+    const CODE_MOBILEPAY = 'unzerdirect_mobilepay';
+    const CODE_VIPPS= 'unzerdirect_vipps';
+    const CODE_PAYPAL = 'unzerdirect_paypal';
+    const CODE_VIABILL = 'unzerdirect_viabill';
 
-    const XML_PATH_CARD_LOGO = 'payment/quickpay_gateway/cardlogos';
+    const XML_PATH_CARD_LOGO = 'payment/unzerdirect_gateway/cardlogos';
 
     protected $scopeConfig;
 
@@ -40,8 +40,8 @@ final class ConfigProvider implements ConfigProviderInterface
         return [
             'payment' => [
                 self::CODE => [
-                    'redirectUrl' => 'quickpaygateway/payment/redirect',
-                    'paymentLogo' => $this->getQuickPayCardLogo()
+                    'redirectUrl' => 'unzerdirect/payment/redirect',
+                    'paymentLogo' => $this->getUnzerDirectCardLogo()
                 ],
                 self::CODE_KLARNA => [
                     'paymentLogo' => $this->getKlarnaLogo()
@@ -65,7 +65,7 @@ final class ConfigProvider implements ConfigProviderInterface
         ];
     }
 
-    public function getQuickPayCardLogo(){
+    public function getUnzerDirectCardLogo(){
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
         $cards = explode(',', $this->scopeConfig->getValue(self::XML_PATH_CARD_LOGO, $storeScope));
 
@@ -74,7 +74,7 @@ final class ConfigProvider implements ConfigProviderInterface
         if(count($cards)) {
             foreach ($cards as $card) {
                 if($card) {
-                    $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/logo/{$card}.png");
+                    $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/logo/{$card}.png");
                 }
             }
         }
@@ -85,7 +85,7 @@ final class ConfigProvider implements ConfigProviderInterface
     public function getKlarnaLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/klarna.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/klarna.png");
 
         return $items;
     }
@@ -93,7 +93,7 @@ final class ConfigProvider implements ConfigProviderInterface
     public function getApplePayLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/applepay.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/applepay.png");
 
         return $items;
     }
@@ -101,7 +101,7 @@ final class ConfigProvider implements ConfigProviderInterface
     public function getMobilePayLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/mobilepay_payment.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/mobilepay_payment.png");
 
         return $items;
     }
@@ -109,7 +109,7 @@ final class ConfigProvider implements ConfigProviderInterface
     public function getVippsLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/vipps.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/vipps.png");
 
         return $items;
     }
@@ -117,7 +117,7 @@ final class ConfigProvider implements ConfigProviderInterface
     public function getPaypalLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/paypal.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/paypal.png");
 
         return $items;
     }
@@ -125,7 +125,7 @@ final class ConfigProvider implements ConfigProviderInterface
     public function getViaBillLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("QuickPay_Gateway::images/viabill.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/viabill.png");
 
         return $items;
     }

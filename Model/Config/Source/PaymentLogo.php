@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Model\Config\Source;
+namespace UnzerDirect\Gateway\Model\Config\Source;
 
 class PaymentLogo implements \Magento\Framework\Option\ArrayInterface
 {

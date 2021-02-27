@@ -6,7 +6,7 @@ define(
         'use strict';
 
         return {
-            redirectUrl: window.checkoutConfig.payment.quickpay_gateway.redirectUrl,
+            redirectUrl: window.checkoutConfig.payment.unzerdirect_gateway.redirectUrl,
 
             /**
              * Provide redirect to page

@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Controller\Payment;
+namespace UnzerDirect\Gateway\Controller\Payment;
 
 class MobilePayRedirect extends \Magento\Framework\App\Action\Action
 {
@@ -15,12 +15,12 @@ class MobilePayRedirect extends \Magento\Framework\App\Action\Action
     protected $orderRepository;
 
     /**
-     * @var \QuickPay\Gateway\Model\Adapter\QuickPayAdapter
+     * @var \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter
      */
     protected $_adapter;
 
     /**
-     * @var \QuickPay\Gateway\Helper\Order
+     * @var \UnzerDirect\Gateway\Helper\Order
      */
     protected $orderHelper;
 
@@ -35,7 +35,7 @@ class MobilePayRedirect extends \Magento\Framework\App\Action\Action
     protected $_resultJsonFactory;
 
     /**
-     * @var \QuickPay\Gateway\Model\Carrier\Shipping
+     * @var \UnzerDirect\Gateway\Model\Carrier\Shipping
      */
     protected $shipping;
 
@@ -44,19 +44,19 @@ class MobilePayRedirect extends \Magento\Framework\App\Action\Action
      * @param \Magento\Framework\App\Action\Context $context
      * @param \Psr\Log\LoggerInterface $logger
      * @param \Magento\Sales\Api\Data\OrderInterface $orderRepository
-     * @param \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter
-     * @param \QuickPay\Gateway\Helper\Order $orderHelper
+     * @param \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter
+     * @param \UnzerDirect\Gateway\Helper\Order $orderHelper
      * @param \Magento\Checkout\Model\Sessio $checkoutSession
      */
     public function __construct(
         \Magento\Framework\App\Action\Context $context,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Sales\Api\Data\OrderInterface $orderRepository,
-        \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter,
-        \QuickPay\Gateway\Helper\Order $orderHelper,
+        \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter,
+        \UnzerDirect\Gateway\Helper\Order $orderHelper,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Framework\Controller\Result\JsonFactory $resultJsonFactory,
-        \QuickPay\Gateway\Model\Carrier\Shipping $shipping
+        \UnzerDirect\Gateway\Model\Carrier\Shipping $shipping
     )
     {
         $this->_logger = $logger;
@@ -79,7 +79,7 @@ class MobilePayRedirect extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Redirect to to QuickPay MobilePay
+     * Redirect to to UnzerDirect MobilePay
      *
      * @return string
      */
@@ -122,7 +122,7 @@ class MobilePayRedirect extends \Magento\Framework\App\Action\Action
             }
 
             //Save quote id in session for retrieval later
-            $this->_getCheckout()->setQuickpayQuoteId($this->_getCheckout()->getQuoteId());
+            $this->_getCheckout()->setUnzerDirectQuoteId($this->_getCheckout()->getQuoteId());
 
             $shippingServiceData = [
                 'code' => $params['shipping'],

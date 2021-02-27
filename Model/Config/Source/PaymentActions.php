@@ -1,5 +1,5 @@
 <?php
-namespace QuickPay\Gateway\Model\Config\Source;
+namespace UnzerDirect\Gateway\Model\Config\Source;
 
 use Magento\Payment\Model\Method\AbstractMethod;
 

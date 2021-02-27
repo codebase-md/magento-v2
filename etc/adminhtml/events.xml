@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="sales_order_shipment_save_after">
-        <observer name="quickpay_capture_after_shipment" instance="QuickPay\Gateway\Observer\CaptureOrderShipmentAfter" />
+        <observer name="unzerdirect_capture_after_shipment" instance="UnzerDirect\Gateway\Observer\CaptureOrderShipmentAfter" />
     </event>
     <event name="sales_order_invoice_pay">
-        <observer name="quickpay_capture_after_invoice" instance="QuickPay\Gateway\Observer\CaptureOrderInvoiceAfter" />
+        <observer name="unzerdirect_capture_after_invoice" instance="UnzerDirect\Gateway\Observer\CaptureOrderInvoiceAfter" />
     </event>
     <event name="order_cancel_after">
-        <observer name="quickpay_order_cancel_after" instance="QuickPay\Gateway\Observer\CancelOrderAfter" />
+        <observer name="unzerdirect_order_cancel_after" instance="UnzerDirect\Gateway\Observer\CancelOrderAfter" />
     </event>
     <event name="checkout_submit_all_after">
-        <observer name="quickpay_send_payment_email" instance="QuickPay\Gateway\Observer\SendPaymentEmail" />
+        <observer name="unzerdirect_send_payment_email" instance="UnzerDirect\Gateway\Observer\SendPaymentEmail" />
     </event>
 </config>

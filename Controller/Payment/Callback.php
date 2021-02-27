@@ -1,18 +1,18 @@
 <?php
 
-namespace QuickPay\Gateway\Controller\Payment;
+namespace UnzerDirect\Gateway\Controller\Payment;
 
 use Magento\Sales\Model\Order;
 use Zend\Json\Json;
 
 class Callback extends \Magento\Framework\App\Action\Action
 {
-    const PRIVATE_KEY_XML_PATH            = 'payment/quickpay_gateway/private_key';
-    const TESTMODE_XML_PATH               = 'payment/quickpay_gateway/testmode';
-    const TRANSACTION_FEE_LABEL_XML_PATH  = 'payment/quickpay_gateway/transaction_fee_label';
-    const AUTOCAPTURE_XML_PATH            = 'payment/quickpay_gateway/autocapture';
+    const PRIVATE_KEY_XML_PATH            = 'payment/unzerdirect_gateway/private_key';
+    const TESTMODE_XML_PATH               = 'payment/unzerdirect_gateway/testmode';
+    const TRANSACTION_FEE_LABEL_XML_PATH  = 'payment/unzerdirect_gateway/transaction_fee_label';
+    const AUTOCAPTURE_XML_PATH            = 'payment/unzerdirect_gateway/autocapture';
     const TRANSACTION_FEE_SKU             = 'transaction_fee';
-    const SEND_INVOICE_EMAIL_XML_PATH     = 'payment/quickpay_gateway/send_invoice_email';
+    const SEND_INVOICE_EMAIL_XML_PATH     = 'payment/unzerdirect_gateway/send_invoice_email';
 
     /**
      * @var \Psr\Log\LoggerInterface
@@ -35,7 +35,7 @@ class Callback extends \Magento\Framework\App\Action\Action
     protected $orderSender;
 
     /**
-     * @var QuickPay\Gateway\Model\Adapter\QuickPayAdapter
+     * @var UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter
      */
     protected $adapter;
 
@@ -71,12 +71,12 @@ class Callback extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Sales\Api\Data\OrderInterface $order,
         \Magento\Sales\Model\Order\Email\Sender\OrderSender $orderSender,
-        \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter,
+        \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter,
         \Magento\Sales\Model\Service\InvoiceService $invoiceService,
         \Magento\Framework\DB\TransactionFactory $transactionFactory,
         \Magento\Sales\Model\Order\Email\Sender\InvoiceSender $invoiceSender,
         \Magento\Framework\App\Filesystem\DirectoryList $dir,
-        \QuickPay\Gateway\Helper\Order $orderHelper
+        \UnzerDirect\Gateway\Helper\Order $orderHelper
     )
     {
         $this->scopeConfig = $scopeConfig;
@@ -90,7 +90,7 @@ class Callback extends \Magento\Framework\App\Action\Action
         $this->invoiceSender = $invoiceSender;
         $this->orderHelper = $orderHelper;
 
-        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/quickpay.log'));
+        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/unzerdirect.log'));
 
         parent::__construct($context);
     }
@@ -104,7 +104,7 @@ class Callback extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Handle callback from QuickPay
+     * Handle callback from UnzerDirect
      *
      * @return string
      */

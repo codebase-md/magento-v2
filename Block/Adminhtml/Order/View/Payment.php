@@ -1,5 +1,5 @@
 <?php
-namespace QuickPay\Gateway\Block\Adminhtml\Order\View;
+namespace UnzerDirect\Gateway\Block\Adminhtml\Order\View;
 class Payment extends \Magento\Backend\Block\Template
 {
     /**

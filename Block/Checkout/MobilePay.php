@@ -1,13 +1,13 @@
 <?php
-namespace QuickPay\Gateway\Block\Checkout;
+namespace UnzerDirect\Gateway\Block\Checkout;
 
 use Magento\Store\Model\ScopeInterface;
 
 class MobilePay extends \Magento\Framework\View\Element\Template
 {
-    const MOBILEPAY_TITLE_XML_PATH      = 'payment/quickpay_gateway/mobilepay/title';
-    const MOBILEPAY_DESCRIPTION_XML_PATH  = 'payment/quickpay_gateway/mobilepay/description';
-    const MOBILEPAY_POPUP_DESCRIPTION_XML_PATH  = 'payment/quickpay_gateway/mobilepay/popup_description';
+    const MOBILEPAY_TITLE_XML_PATH      = 'payment/unzerdirect_gateway/mobilepay/title';
+    const MOBILEPAY_DESCRIPTION_XML_PATH  = 'payment/unzerdirect_gateway/mobilepay/description';
+    const MOBILEPAY_POPUP_DESCRIPTION_XML_PATH  = 'payment/unzerdirect_gateway/mobilepay/popup_description';
 
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
@@ -25,7 +25,7 @@ class MobilePay extends \Magento\Framework\View\Element\Template
     protected $_agreementCollectionFactory;
 
     /**
-     * @var \QuickPay\Gateway\Model\Carrier\Shipping
+     * @var \UnzerDirect\Gateway\Model\Carrier\Shipping
      */
     protected $shipping;
 
@@ -35,14 +35,14 @@ class MobilePay extends \Magento\Framework\View\Element\Template
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\UrlInterface $url
      * @param \Magento\CheckoutAgreements\Model\ResourceModel\Agreement\CollectionFactory $agreementCollectionFactory
-     * @param \QuickPay\Gateway\Model\Carrier\Shipping $shipping
+     * @param \UnzerDirect\Gateway\Model\Carrier\Shipping $shipping
      */
     public function __construct(
         \Magento\Framework\View\Element\Template\Context $context,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\UrlInterface $url,
         \Magento\CheckoutAgreements\Model\ResourceModel\Agreement\CollectionFactory $agreementCollectionFactory,
-        \QuickPay\Gateway\Model\Carrier\Shipping $shipping
+        \UnzerDirect\Gateway\Model\Carrier\Shipping $shipping
     )
     {
         $this->scopeConfig = $scopeConfig;
@@ -77,7 +77,7 @@ class MobilePay extends \Magento\Framework\View\Element\Template
      * @return string
      */
     public function getRedirectUrl(){
-        return $this->url->getUrl('quickpaygateway/payment/mobilepayredirect');
+        return $this->url->getUrl('unzerdirect/payment/mobilepayredirect');
     }
 
     /**

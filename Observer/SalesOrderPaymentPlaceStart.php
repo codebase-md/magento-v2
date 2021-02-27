@@ -1,12 +1,12 @@
 <?php
 
-namespace QuickPay\Gateway\Observer;
+namespace UnzerDirect\Gateway\Observer;
 
 use Magento\Framework\Event\Observer;
 
 class SalesOrderPaymentPlaceStart implements \Magento\Framework\Event\ObserverInterface
 {
-    const SEND_ORDER_EMAIL_XML_PATH     = 'payment/quickpay_gateway/send_order_email';
+    const SEND_ORDER_EMAIL_XML_PATH     = 'payment/unzerdirect_gateway/send_order_email';
     /**
      * @var \Magento\Framework\App\Config\ScopeConfigInterface
      */
@@ -32,7 +32,7 @@ class SalesOrderPaymentPlaceStart implements \Magento\Framework\Event\ObserverIn
         /** @var \Magento\Sales\Model\Order\Payment\Interceptor $payment */
         $payment = $observer->getPayment();
 
-        if (strpos($payment->getMethod(), 'quickpay') !== false) {
+        if (strpos($payment->getMethod(), 'unzerdirect') !== false) {
             $emailSend = $this->scopeConfig->getValue(self::SEND_ORDER_EMAIL_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
             $order = $payment->getOrder();
             if($emailSend) {

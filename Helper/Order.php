@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Helper;
+namespace UnzerDirect\Gateway\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
@@ -68,7 +68,7 @@ class Order extends AbstractHelper
         $this->logger = $logger;
         $this->scopeConfig = $scopeConfig;
 
-        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/quickpay.log'));
+        $this->logger->pushHandler(new \Monolog\Handler\StreamHandler($this->dir->getRoot().'/var/log/unzerdirect.log'));
     }
 
     /**
@@ -169,7 +169,7 @@ class Order extends AbstractHelper
         $shippingAddress->setCollectShippingRates(true)->collectShippingRates()->setShippingMethod($shippingMethod);
 
         // Set Sales Order Payment
-        $quote->getPayment()->importData(['method' => 'quickpay_gateway']);
+        $quote->getPayment()->importData(['method' => 'unzerdirect_gateway']);
 
         // Collect Totals & Save Quote
         $quote->collectTotals()->save();
@@ -349,7 +349,7 @@ class Order extends AbstractHelper
 
 
         // Set Sales Order Payment
-        $quote->getPayment()->importData(['method' => 'quickpay_gateway']);
+        $quote->getPayment()->importData(['method' => 'unzerdirect_gateway']);
 
         // Collect Totals & Save Quote
         $quote->collectTotals()->save();

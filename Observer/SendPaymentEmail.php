@@ -1,13 +1,13 @@
 <?php
 
-namespace QuickPay\Gateway\Observer;
+namespace UnzerDirect\Gateway\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 
 class SendPaymentEmail implements ObserverInterface
 {
     /**
-     * @var QuickPay\Gateway\Model\Adapter\QuickPayAdapter
+     * @var UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter
      */
     protected $adapter;
 
@@ -25,12 +25,12 @@ class SendPaymentEmail implements ObserverInterface
 
     /**
      * SendPaymentEmail constructor.
-     * @param \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter
+     * @param \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter
      * @param \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation
      * @param \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder
      */
     public function __construct(
-        \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter,
+        \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter,
         \Magento\Framework\Translate\Inline\StateInterface $inlineTranslation,
         \Magento\Framework\Mail\Template\TransportBuilder $transportBuilder,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
@@ -50,7 +50,7 @@ class SendPaymentEmail implements ObserverInterface
         $order = $observer->getEvent()->getOrder();
 
         $payment = $order->getPayment();
-        if ($payment->getMethod() === \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE) {
+        if ($payment->getMethod() === \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE) {
             $this->savePaymentLink($order);
             $this->sendPaymentEmail($order);
         }
@@ -100,7 +100,7 @@ class SendPaymentEmail implements ObserverInterface
             $sentToName = $order->getCustomerName();
 
             $transport = $this->_transportBuilder
-                ->setTemplateIdentifier('quickpay_makepayment_email_template')
+                ->setTemplateIdentifier('unzerdirect_makepayment_email_template')
                 ->setTemplateOptions(
                     [
                         'area' => \Magento\Framework\App\Area::AREA_FRONTEND,

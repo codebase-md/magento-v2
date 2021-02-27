@@ -1,6 +1,6 @@
 {
-  "name": "quickpay/magento2",
-  "description": "Implements integration with the QuickPay payment service provider.",
+  "name": "unzer-direct/magento2",
+  "description": "Implements integration with the UnzerDirect payment service provider.",
   "authors": [
     {
       "name": "Codemakers",
@@ -20,7 +20,7 @@
       "registration.php"
     ],
     "psr-4": {
-      "QuickPay\\Gateway\\": ""
+      "UnzerDirect\\Gateway\\": ""
     }
   }
 }

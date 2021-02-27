@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Plugin;
+namespace UnzerDirect\Gateway\Plugin;
 
 use Magento\Framework\App\ActionInterface;
 use Magento\Framework\App\Request\CsrfValidator;
@@ -23,7 +23,7 @@ class CsrfValidatorSkip
         RequestInterface $request,
         ActionInterface $action
     ) {
-        if ($action instanceof \QuickPay\Gateway\Controller\Payment\Callback) {
+        if ($action instanceof \UnzerDirect\Gateway\Controller\Payment\Callback) {
             return true;
         }
         return $proceed($request, $action);

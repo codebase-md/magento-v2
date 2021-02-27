@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Model;
+namespace UnzerDirect\Gateway\Model;
 
 /**
  * Pay In Store payment method model
@@ -12,12 +12,12 @@ class Klarna extends \Magento\Payment\Model\Method\AbstractMethod
      *
      * @var string
      */
-    protected $_code = 'quickpay_klarna';
+    protected $_code = 'unzerdirect_klarna';
 
     /**
      * @var string
      */
-    protected $_title = 'QuickPay';
+    protected $_title = 'UnzerDirect';
 
     /**
      * Availability option
@@ -104,7 +104,7 @@ class Klarna extends \Magento\Payment\Model\Method\AbstractMethod
     public function capture(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $adapter = $objectManager->get(\QuickPay\Gateway\Model\Adapter\QuickPayAdapter::class);
+        $adapter = $objectManager->get(\UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter::class);
         $parts = explode('-',$payment->getTransactionId());
         $order = $payment->getOrder();
         $transaction = $parts[0];
@@ -131,7 +131,7 @@ class Klarna extends \Magento\Payment\Model\Method\AbstractMethod
     public function refund(\Magento\Payment\Model\InfoInterface $payment, $amount)
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $adapter = $objectManager->get(\QuickPay\Gateway\Model\Adapter\QuickPayAdapter::class);
+        $adapter = $objectManager->get(\UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter::class);
         $parts = explode('-',$payment->getTransactionId());
         $order = $payment->getOrder();
         $transaction = $parts[0];
@@ -156,7 +156,7 @@ class Klarna extends \Magento\Payment\Model\Method\AbstractMethod
     public function cancel(\Magento\Payment\Model\InfoInterface $payment)
     {
         $objectManager = \Magento\Framework\App\ObjectManager::getInstance();
-        $adapter = $objectManager->get(\QuickPay\Gateway\Model\Adapter\QuickPayAdapter::class);
+        $adapter = $objectManager->get(\UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter::class);
         $parts = explode('-',$payment->getTransactionId());
         $order = $payment->getOrder();
         $transaction = $parts[0];

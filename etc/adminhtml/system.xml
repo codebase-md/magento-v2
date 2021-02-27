@@ -8,11 +8,11 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
     <system>
         <section id="payment">
-            <group id="quickpay_gateway" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>QuickPay</label>
+            <group id="unzerdirect_gateway" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>UnzerDirect</label>
                 <field id="version" translate="label" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Version</label>
-                    <frontend_model>QuickPay\Gateway\Model\Config\Source\Version</frontend_model>
+                    <frontend_model>UnzerDirect\Gateway\Model\Config\Source\Version</frontend_model>
                 </field>
                 <field id="active" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -51,15 +51,14 @@
                 <field id="cardlogos" translate="label" type="multiselect" sortOrder="81" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Which card logos should be displayed</label>
                     <can_be_empty>1</can_be_empty>
-                    <source_model>QuickPay\Gateway\Model\Config\Source\PaymentLogo</source_model>
+                    <source_model>UnzerDirect\Gateway\Model\Config\Source\PaymentLogo</source_model>
                 </field>
                 <field id="payment_methods" translate="label" type="select" sortOrder="82" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Payment Methods</label>
-                    <source_model>QuickPay\Gateway\Model\Config\Source\PaymentMethods</source_model>
+                    <source_model>UnzerDirect\Gateway\Model\Config\Source\PaymentMethods</source_model>
                 </field>
                 <field id="payment_method_specified" translate="label comment" type="text" sortOrder="83" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Payment Method</label>
-                    <comment>Type in the cards you wish to accept (comma separated). See the valid payment types here: <![CDATA[<a href="http://tech.quickpay.net/appendixes/payment-methods/" target="_blank" rel="noopener">http://tech.quickpay.net/appendixes/payment-methods/</a>]]></comment>
                     <depends>
                         <field id="*/*/payment_methods">specified</field>
                     </depends>
@@ -165,8 +164,8 @@
                     </field>
                 </group>
             </group>
-            <group id="quickpay_mobilepay" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Quickpay MobilePay</label>
+            <group id="unzerdirect_mobilepay" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>UnzerDirect MobilePay</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -192,8 +191,8 @@
                     <frontend_class>validate-number</frontend_class>
                 </field>
             </group>
-            <group id="quickpay_klarna" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Quickpay Klarna</label>
+            <group id="unzerdirect_klarna" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>UnzerDirect Klarna</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -219,8 +218,8 @@
                     <frontend_class>validate-number</frontend_class>
                 </field>
             </group>
-            <group id="quickpay_vipps" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Quickpay Vipps</label>
+            <group id="unzerdirect_vipps" translate="label" type="text" sortOrder="14" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>UnzerDirect Vipps</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -246,8 +245,8 @@
                     <frontend_class>validate-number</frontend_class>
                 </field>
             </group>
-            <group id="quickpay_paypal" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Quickpay PayPal</label>
+            <group id="unzerdirect_paypal" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>UnzerDirect PayPal</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -273,8 +272,8 @@
                     <frontend_class>validate-number</frontend_class>
                 </field>
             </group>
-            <group id="quickpay_viabill" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Quickpay ViaBill</label>
+            <group id="unzerdirect_viabill" translate="label" type="text" sortOrder="16" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>UnzerDirect ViaBill</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>

@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Observer;
+namespace UnzerDirect\Gateway\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Exception\LocalizedException;
@@ -8,12 +8,12 @@ use Magento\Framework\Exception\LocalizedException;
 class CaptureOrderInvoiceAfter implements ObserverInterface
 {
     /**
-     * @var QuickPay\Gateway\Model\Adapter\QuickPayAdapter
+     * @var UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter
      */
     protected $adapter;
 
     public function __construct(
-        \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter
+        \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter
     )
     {
         $this->adapter = $adapter;
@@ -27,7 +27,7 @@ class CaptureOrderInvoiceAfter implements ObserverInterface
         $invoice = $observer->getEvent()->getInvoice();
         $order = $invoice->getOrder();
         $payment = $order->getPayment();
-        if ($payment->getMethod() === \QuickPay\Gateway\Model\Ui\ConfigProvider::CODE) {
+        if ($payment->getMethod() === \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE) {
             $captureCase = $invoice->getRequestedCaptureCase();
             if ($payment->canCapture()) {
                 if ($captureCase == \Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE) {

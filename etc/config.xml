@@ -8,9 +8,9 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
     <default>
         <payment>
-            <quickpay_gateway>
-                <model>QuickPay\Gateway\Model\Payment</model>
-                <title>QuickPay Payment</title>
+            <unzerdirect_gateway>
+                <model>UnzerDirect\Gateway\Model\Payment</model>
+                <title>UnzerDirect Payment</title>
                 <active>1</active>
                 <testmode>0</testmode>
                 <order_status>pending_payment</order_status>
@@ -33,7 +33,7 @@
                 <apikey backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <private_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <mobilepay>
-                    <title>QuickPay MobilePay</title>
+                    <title>UnzerDirect MobilePay</title>
                     <active>0</active>
                     <shipping_store_pick_up_title>Hent i butikken</shipping_store_pick_up_title>
                     <shipping_home_delivery_title>Ordren leveres til din hjemmeadresse</shipping_home_delivery_title>
@@ -42,10 +42,10 @@
                     <shipping_pick_up_point_title>Afhentning i en pakkeshop (pick_up_point)</shipping_pick_up_point_title>
                     <shipping_own_delivery_title>Ordren leveres til din hjemmeadresse</shipping_own_delivery_title>
                 </mobilepay>
-            </quickpay_gateway>
-            <quickpay_klarna>
-                <model>QuickPay\Gateway\Model\Klarna</model>
-                <title>QuickPay Klarna</title>
+            </unzerdirect_gateway>
+            <unzerdirect_klarna>
+                <model>UnzerDirect\Gateway\Model\Klarna</model>
+                <title>UnzerDirect Klarna</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>3</sort_order>
@@ -60,10 +60,10 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
-            </quickpay_klarna>
-            <quickpay_mobilepay>
-                <model>QuickPay\Gateway\Model\MobilePay</model>
-                <title>QuickPay MobilePay</title>
+            </unzerdirect_klarna>
+            <unzerdirect_mobilepay>
+                <model>UnzerDirect\Gateway\Model\MobilePay</model>
+                <title>UnzerDirect MobilePay</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>4</sort_order>
@@ -79,10 +79,10 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
-            </quickpay_mobilepay>
-            <quickpay_vipps>
-                <model>QuickPay\Gateway\Model\Vipps</model>
-                <title>QuickPay Vipps</title>
+            </unzerdirect_mobilepay>
+            <unzerdirect_vipps>
+                <model>UnzerDirect\Gateway\Model\Vipps</model>
+                <title>UnzerDirect Vipps</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>4</sort_order>
@@ -97,10 +97,10 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
-            </quickpay_vipps>
-            <quickpay_paypal>
-                <model>QuickPay\Gateway\Model\PayPal</model>
-                <title>QuickPay PayPal</title>
+            </unzerdirect_vipps>
+            <unzerdirect_paypal>
+                <model>UnzerDirect\Gateway\Model\PayPal</model>
+                <title>UnzerDirect PayPal</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>4</sort_order>
@@ -115,10 +115,10 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
-            </quickpay_paypal>
-            <quickpay_viabill>
-                <model>QuickPay\Gateway\Model\ViaBill</model>
-                <title>QuickPay ViaBill</title>
+            </unzerdirect_paypal>
+            <unzerdirect_viabill>
+                <model>UnzerDirect\Gateway\Model\ViaBill</model>
+                <title>UnzerDirect ViaBill</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>5</sort_order>
@@ -133,14 +133,14 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
-            </quickpay_viabill>
+            </unzerdirect_viabill>
         </payment>
         <carriers>
             <mobilepay>
                 <active>1</active>
                 <sallowspecific>0</sallowspecific>
-                <model>QuickPay\Gateway\Model\Carrier\Shipping</model>
-                <name>QuickPay</name>
+                <model>UnzerDirect\Gateway\Model\Carrier\Shipping</model>
+                <name>UnzerDirect</name>
                 <price>0.00</price>
                 <title>MobilePay Checkout</title>
                 <handling_type>F</handling_type>

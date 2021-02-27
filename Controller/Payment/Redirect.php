@@ -1,6 +1,6 @@
 <?php
 
-namespace QuickPay\Gateway\Controller\Payment;
+namespace UnzerDirect\Gateway\Controller\Payment;
 
 class Redirect extends \Magento\Framework\App\Action\Action
 {
@@ -15,7 +15,7 @@ class Redirect extends \Magento\Framework\App\Action\Action
     protected $orderRepository;
 
     /**
-     * @var \QuickPay\Gateway\Model\Adapter\QuickPayAdapter
+     * @var \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter
      */
     protected $_adapter;
 
@@ -38,7 +38,7 @@ class Redirect extends \Magento\Framework\App\Action\Action
         \Magento\Framework\App\Action\Context $context,
         \Psr\Log\LoggerInterface $logger,
         \Magento\Sales\Api\Data\OrderInterface $orderRepository,
-        \QuickPay\Gateway\Model\Adapter\QuickPayAdapter $adapter,
+        \UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter $adapter,
         \Magento\Checkout\Model\Session $checkoutSession,
         \Magento\Sales\Model\OrderFactory $orderFactory
     )
@@ -73,7 +73,7 @@ class Redirect extends \Magento\Framework\App\Action\Action
     }
 
     /**
-     * Redirect to to QuickPay
+     * Redirect to to UnzerDirect
      *
      * @return string
      */
@@ -84,7 +84,7 @@ class Redirect extends \Magento\Framework\App\Action\Action
 
             if($order) {
                 //Save quote id in session for retrieval later
-                $this->_getCheckout()->setQuickpayQuoteId($this->_getCheckout()->getQuoteId());
+                $this->_getCheckout()->setUnzerDirectQuoteId($this->_getCheckout()->getQuoteId());
 
                 $response = $this->_adapter->CreatePaymentLink($order);
 

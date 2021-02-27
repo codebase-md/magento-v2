@@ -3,11 +3,11 @@
     <type name="Magento\Checkout\Model\CompositeConfigProvider">
         <arguments>
             <argument name="configProviders" xsi:type="array">
-                <item name="quickpay_gateway_config_provider" xsi:type="object">QuickPay\Gateway\Model\Ui\ConfigProvider</item>
+                <item name="unzerdirect_gateway_config_provider" xsi:type="object">UnzerDirect\Gateway\Model\Ui\ConfigProvider</item>
             </argument>
         </arguments>
     </type>
     <type name="Magento\Framework\App\Request\CsrfValidator">
-        <plugin name="csrf_validator_skip" type="QuickPay\Gateway\Plugin\CsrfValidatorSkip" />
+        <plugin name="csrf_validator_skip" type="UnzerDirect\Gateway\Plugin\CsrfValidatorSkip" />
     </type>
 </config>

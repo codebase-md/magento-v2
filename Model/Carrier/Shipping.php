@@ -1,5 +1,5 @@
 <?php
-namespace QuickPay\Gateway\Model\Carrier;
+namespace UnzerDirect\Gateway\Model\Carrier;
 
 use Magento\Quote\Model\Quote\Address\RateRequest;
 use Magento\Shipping\Model\Rate\Result;
@@ -105,7 +105,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
             return false;
         }
 
-        if(!$this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) || !$this->request->getParam('mobilepay')){
+        if(!$this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/active', \Magento\Store\Model\ScopeInterface::SCOPE_STORE) || !$this->request->getParam('mobilepay')){
             return false;
         }
 
@@ -152,7 +152,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
         $methods = $this->getAvailableMethods();
         $data = [];
         foreach($methods as $code => $title){
-            $price = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_'.$code, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $price = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_'.$code, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
             $data[$code] = [
                 'title' => $title,
                 'price' => $this->_currencyInterface->format($price, false)
@@ -168,7 +168,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
     public function getMethodByCode($code){
         $methods = $this->getAvailableMethods();
         if(isset($methods[$code])){
-            $price = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_'.$code, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $price = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_'.$code, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
             return [
                 'title' => $methods[$code],
                 'price' => number_format($price, 2)
@@ -181,7 +181,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
      * @return \Magento\Framework\Phrase|mixed|string
      */
     public function getShipping1Title(){
-        $title = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_store_pick_up_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $title = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_store_pick_up_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $title ? $title : __('Hent i butikken');
     }
 
@@ -189,7 +189,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
      * @return \Magento\Framework\Phrase|mixed|string
      */
     public function getShipping2Title(){
-        $title = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_home_delivery_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $title = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_home_delivery_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $title ? $title : __('Ordren leveres til din hjemmeadresse');
     }
 
@@ -197,7 +197,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
      * @return \Magento\Framework\Phrase|mixed|string
      */
     public function getShipping3Title(){
-        $title = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_registered_box_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $title = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_registered_box_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $title ? $title : __('Afhentning i en pakkeshop (registered_box)');
     }
 
@@ -205,7 +205,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
      * @return \Magento\Framework\Phrase|mixed|string
      */
     public function getShipping4Title(){
-        $title = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_unregistered_box_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $title = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_unregistered_box_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $title ? $title : __('Afhentning i en pakkeshop (unregistered_box)');
     }
 
@@ -213,7 +213,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
      * @return \Magento\Framework\Phrase|mixed|string
      */
     public function getShipping5Title(){
-        $title = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_pick_up_point_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $title = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_pick_up_point_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $title ? $title : __('Afhentning i en pakkeshop (pick_up_point)');
     }
 
@@ -221,7 +221,7 @@ class Shipping extends \Magento\Shipping\Model\Carrier\AbstractCarrier implement
      * @return \Magento\Framework\Phrase|mixed|string
      */
     public function getShipping6Title(){
-        $title = $this->_scopeConfig->getValue('payment/quickpay_gateway/mobilepay/shipping_own_delivery_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+        $title = $this->_scopeConfig->getValue('payment/unzerdirect_gateway/mobilepay/shipping_own_delivery_title', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
         return $title ? $title : __('Ordren leveres til din hjemmeadresse');
     }
 }

@@ -1,14 +1,14 @@
 define(
     [
         'Magento_Checkout/js/view/payment/default',
-        'QuickPay_Gateway/js/action/redirect-on-success'
+        'UnzerDirect_Gateway/js/action/redirect-on-success'
     ],
-    function (Component, quickpayRedirect) {
+    function (Component, unzerDirectRedirect) {
         'use strict';
 
         return Component.extend({
             defaults: {
-                template: 'QuickPay_Gateway/payment/form',
+                template: 'UnzerDirect_Gateway/payment/form',
                 paymentReady: false
             },
             redirectAfterPlaceOrder: false,
@@ -31,7 +31,7 @@ define(
             },
 
             getCode: function() {
-                return 'quickpay_mobilepay';
+                return 'unzerdirect_mobilepay';
             },
             getData: function() {
                 return {
@@ -39,10 +39,10 @@ define(
                 };
             },
             afterPlaceOrder: function() {
-                quickpayRedirect.execute();
+                unzerDirectRedirect.execute();
             },
             getPaymentLogo: function () {
-                return window.checkoutConfig.payment.quickpay_mobilepay.paymentLogo;
+                return window.checkoutConfig.payment.unzerdirect_mobilepay.paymentLogo;
             },
         });
     }

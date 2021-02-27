@@ -1,10 +1,4 @@
-## QuickPay_Gateway
-
-This is a major release - a remake of the old 2.x module (QuickPay_Payment).
-
-The main reason for the remake was to fix two main issues of QuickPay_Payment, namely:
-* Marking unsuccessful orders as "Authorized"
-* Making it not possible to cancel such orders
+## UnzerDirect_Gateway
 
 We highly suggest to test it on a staging/development environment first.
 
@@ -13,8 +7,8 @@ If you have trouble running it on an older Magento version, please, try to updat
 
 ### Installation
 ```
-composer require quickpay/magento2
-php bin/magento module:enable QuickPay_Gateway
+composer require unzer-direct/magento2
+php bin/magento module:enable UnzerDirect_Gateway
 php bin/magento setup:upgrade
 php bin/magento setup:static-content:deploy
 php bin/magento setup:di:compile

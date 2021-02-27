@@ -1,6 +1,6 @@
 <?php
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'QuickPay_Gateway',
+    'UnzerDirect_Gateway',
     __DIR__
 );
