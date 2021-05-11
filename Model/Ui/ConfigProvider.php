@@ -11,10 +11,7 @@ final class ConfigProvider implements ConfigProviderInterface
     const CODE = 'unzerdirect_gateway';
     const CODE_KLARNA = 'unzerdirect_klarna';
     const CODE_APPLEPAY = 'unzerdirect_applepay';
-    const CODE_MOBILEPAY = 'unzerdirect_mobilepay';
-    const CODE_VIPPS= 'unzerdirect_vipps';
     const CODE_PAYPAL = 'unzerdirect_paypal';
-    const CODE_VIABILL = 'unzerdirect_viabill';
 
     const XML_PATH_CARD_LOGO = 'payment/unzerdirect_gateway/cardlogos';
 
@@ -49,17 +46,8 @@ final class ConfigProvider implements ConfigProviderInterface
                 self::CODE_APPLEPAY => [
                     'paymentLogo' => $this->getApplePayLogo()
                 ],
-                self::CODE_MOBILEPAY => [
-                    'paymentLogo' => $this->getMobilePayLogo()
-                ],
-                self::CODE_VIPPS => [
-                    'paymentLogo' => $this->getVippsLogo()
-                ],
                 self::CODE_PAYPAL => [
                     'paymentLogo' => $this->getPaypalLogo()
-                ],
-                self::CODE_VIABILL => [
-                    'paymentLogo' => $this->getViaBillLogo()
                 ]
             ]
         ];
@@ -98,34 +86,10 @@ final class ConfigProvider implements ConfigProviderInterface
         return $items;
     }
 
-    public function getMobilePayLogo(){
-        $items = [];
-
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/mobilepay_payment.png");
-
-        return $items;
-    }
-
-    public function getVippsLogo(){
-        $items = [];
-
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/vipps.png");
-
-        return $items;
-    }
-
     public function getPaypalLogo(){
         $items = [];
 
         $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/paypal.png");
-
-        return $items;
-    }
-
-    public function getViaBillLogo(){
-        $items = [];
-
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/viabill.png");
 
         return $items;
     }

@@ -13,14 +13,6 @@ class PaymentLogo implements \Magento\Framework\Option\ArrayInterface
     {
         return [
             [
-                'value' => 'dankort',
-                'label' => __('Dankort')
-            ],
-            [
-                'value' => 'forbrugsforeningen',
-                'label' => __('Forbrugsforeningen')
-            ],
-            [
                 'value' => 'visa',
                 'label' => __('VISA')
             ],
@@ -35,30 +27,6 @@ class PaymentLogo implements \Magento\Framework\Option\ArrayInterface
             [
                 'value' => 'maestro',
                 'label' => __('Maestro')
-            ],
-            [
-                'value' => 'jcb',
-                'label' => __('JCB')
-            ],
-            [
-                'value' => 'diners',
-                'label' => __('Diners Club')
-            ],
-            [
-                'value' => 'amex',
-                'label' => __('AMEX')
-            ],
-            [
-                'value' => 'sofort',
-                'label' => __('Sofort')
-            ],
-            [
-                'value' => 'viabill',
-                'label' => __('ViaBill')
-            ],
-            [
-                'value' => 'mobilepay',
-                'label' => __('MobilePay')
             ],
             [
                 'value' => 'paypal',

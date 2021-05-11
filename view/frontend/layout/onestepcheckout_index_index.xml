@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
 <page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
-    <head>
-        <css src="UnzerDirect_Gateway::css/style.css" />
-    </head>
     <body>
         <referenceBlock name="checkout.root">
             <arguments>
@@ -29,31 +26,13 @@
                                                                         <item name="unzerdirect_klarna" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
-                                                                        <item name="unzerdirect_mobilepay" xsi:type="array">
-                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
-                                                                        </item>
-                                                                        <item name="unzerdirect_vipps" xsi:type="array">
-                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
-                                                                        </item>
                                                                         <item name="unzerdirect_paypal" xsi:type="array">
-                                                                            <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
-                                                                        </item>
-                                                                        <item name="unzerdirect_viabill" xsi:type="array">
                                                                             <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                                                         </item>
                                                                     </item>
                                                                 </item>
                                                             </item>
                                                         </item>
-                                                    </item>
-                                                </item>
-                                            </item>
-                                        </item>
-                                        <item name="shipping-step" xsi:type="array">
-                                            <item name="children" xsi:type="array">
-                                                <item name="shippingAddress" xsi:type="array">
-                                                    <item name="config" xsi:type="array">
-                                                        <item name="shippingMethodItemTemplate" xsi:type="string">UnzerDirect_Gateway/shipping/shipping-method-item</item>
                                                     </item>
                                                 </item>
                                             </item>
@@ -66,8 +45,5 @@
                 </argument>
             </arguments>
         </referenceBlock>
-        <referenceContainer name="content">
-            <block class="UnzerDirect\Gateway\Block\Checkout\MobilePay" name="unzerdirect.mobilepay" template="UnzerDirect_Gateway::checkout/mobilepay.phtml" before="checkout.root" cacheable="false" ifconfig="payment/unzerdirect_gateway/mobilepay/active"/>
-        </referenceContainer>
     </body>
 </page>

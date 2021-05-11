@@ -18,20 +18,8 @@ define(
                 component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/klarna'
             },
             {
-                type: 'unzerdirect_mobilepay',
-                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/mobilepay'
-            },
-            {
-                type: 'unzerdirect_vipps',
-                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/vipps'
-            },
-            {
                 type: 'unzerdirect_paypal',
                 component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/paypal'
-            },
-            {
-                type: 'unzerdirect_viabill',
-                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/viabill'
             }
         );
 

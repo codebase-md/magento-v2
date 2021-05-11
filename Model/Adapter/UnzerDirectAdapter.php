@@ -216,14 +216,8 @@ class UnzerDirectAdapter
 
             if($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_KLARNA) {
                 $paymentMethods = 'klarna-payments';
-            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_MOBILEPAY) {
-                $paymentMethods = 'mobilepay';
-            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_VIPPS){
-                $paymentMethods = 'vipps';
             } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
                 $paymentMethods = 'paypal';
-            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_VIABILL) {
-                $paymentMethods = 'viabill';
             } else {
                 $paymentMethods = $this->getPaymentMethods();
             }
@@ -247,102 +241,6 @@ class UnzerDirectAdapter
                 $parameters['cancelurl'] = $this->url->getBaseUrl().'unzerdirect/payment/cancel?area=admin';
                 $parameters['callbackurl'] = $this->url->getBaseUrl().'unzerdirect/payment/callback';
             }
-
-            //Create payment link and return payment id
-            $paymentLink = $client->request->put(sprintf('/payments/%s/link', $paymentId), $parameters)->asArray();
-
-            $this->logger->debug(json_encode($paymentLink));
-
-            if(!empty($paymentLink['error_code'])){
-                $response['message'] = $paymentLink['message'];
-
-                return $response;
-            }
-
-            $response['url'] = $paymentLink['url'];
-
-            return $response;
-        } catch (\Exception $e) {
-
-            $this->logger->critical($e->getMessage());
-        }
-
-        return true;
-    }
-
-    /**
-     * @param $quote
-     * @param bool $shippingMethod
-     * @return array|bool
-     */
-    public function CreateMobilePayPaymentLink($quote, $shippingMethod = false){
-        try {
-            $response = [];
-            $this->logger->debug('CREATE PAYMENT MOBILEPAY');
-
-            $api_key = $this->scopeConfig->getValue(self::PUBLIC_KEY_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-            $client = new QuickPay(":{$api_key}");
-
-            $form = [
-                'order_id' => $quote->getReservedOrderId(),
-                'currency' => $quote->getQuoteCurrencyCode(),
-            ];
-
-            if ($textOnStatement = $this->scopeConfig->getValue(self::TEXT_ON_STATEMENT_XML_PATH)) {
-                $form['text_on_statement'] = $textOnStatement;
-            }
-
-            $form['shopsystem'] = [];
-            $form['shopsystem']['name'] = 'Magento 2';
-            $form['shopsystem']['version'] = $this->moduleResource->getDbVersion('UnzerDirect_Gateway');
-
-            //Build basket array
-            $form['basket'] = [];
-            foreach ($quote->getAllVisibleItems() as $item) {
-                $form['basket'][] = [
-                    'qty'        => (int) $item->getQty(),
-                    'item_no'    => $item->getSku(),
-                    'item_name'  => $item->getName(),
-                    'item_price' => $item->getBasePriceInclTax() * 100,
-                    'vat_rate'   => $item->getTaxPercent() / 100,
-                ];
-            }
-            //$form['invoice_address_selection'] = 1;
-            //$form['shipping_address_selection'] = 1;
-            if($shippingMethod){
-                $form['shipping']['method'] = $shippingMethod['code'];
-                $form['shipping']['amount'] = $shippingMethod['price'] * 100;
-            }
-
-            $payments = $client->request->post('/payments', $form);
-
-            $paymentArray = $payments->asArray();
-
-            $this->logger->debug(json_encode($paymentArray));
-
-            if(!empty($paymentArray['error_code'])){
-                $response['message'] = $paymentArray['message'];
-                return $response;
-            }
-
-            $paymentId = $paymentArray['id'];
-
-            $parameters = [
-                "amount"             => $quote->getGrandTotal() * 100,
-                "continueurl"        => $this->url->getUrl('unzerdirect/payment/returns'),
-                "cancelurl"          => $this->url->getUrl('unzerdirect/payment/cancel'),
-                "callbackurl"        => $this->url->getUrl('unzerdirect/payment/callback'),
-                "invoice_address_selection" => 1,
-                "shipping_address_selection" => 1,
-                "customer_email"     => $quote->getCustomerEmail(),
-                "autocapture"        => $this->scopeConfig->isSetFlag(self::AUTOCAPTURE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
-                "payment_methods"    => 'mobilepay',
-                "branding_id"        => $this->scopeConfig->getValue(self::BRANDING_ID_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
-                "language"           => $this->getLanguage(),
-                "auto_fee"           => $this->scopeConfig->isSetFlag(self::TRANSACTION_FEE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
-                "testmode"           => $this->scopeConfig->isSetFlag(self::TEST_MODE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
-                //"acquirer"           => 'mobilepay'
-            ];
 
             //Create payment link and return payment id
             $paymentLink = $client->request->put(sprintf('/payments/%s/link', $paymentId), $parameters)->asArray();
