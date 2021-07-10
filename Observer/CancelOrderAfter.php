@@ -27,7 +27,7 @@ class CancelOrderAfter implements ObserverInterface
         $order = $observer->getEvent()->getOrder();
 
         $payment = $order->getPayment();
-        if ($payment->getMethod() === \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE) {
+        if (strpos($payment->getMethod(), 'unzerdirect') !== false) {
             $parts = explode('-', $payment->getLastTransId());
             $order = $payment->getOrder();
             $transaction = $parts[0];

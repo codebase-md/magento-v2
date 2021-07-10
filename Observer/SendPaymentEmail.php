@@ -120,7 +120,7 @@ class SendPaymentEmail implements ObserverInterface
             $this->_inlineTranslation->resume();
 
         } catch(\Exception $e){
-            exit;
+            throw new \Exception($e->getMessage());
         }
 
 

@@ -3,7 +3,9 @@ namespace UnzerDirect\Gateway\Model\Adapter;
 
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Locale\ResolverInterface;
+use Magento\Framework\Phrase;
 use Magento\Sales\Api\OrderRepositoryInterface;
+use Magento\Sales\Model\Order;
 use Magento\Sales\Model\Order\Payment\Transaction\BuilderInterface;
 use Psr\Log\LoggerInterface;
 use Magento\Framework\UrlInterface;
@@ -27,6 +29,16 @@ class UnzerDirectAdapter
     const SPECIFIED_PAYMENT_METHOD_XML_PATH = 'payment/unzerdirect_gateway/payment_method_specified';
     const BRANDING_ID_XML_PATH = 'payment/unzerdirect_gateway/branding_id';
     const TEST_MODE_XML_PATH = 'payment/unzerdirect_gateway/testmode';
+
+    protected static $errorCodes = [
+        '30100',
+        '40000',
+        '40001',
+        '40002',
+        '40003',
+        '50000',
+        '50300'
+    ];
 
     /**
      * @var LoggerInterface
@@ -191,7 +203,7 @@ class UnzerDirectAdapter
                         'qty' => (int)$item->getQtyOrdered(),
                         'item_no' => $item->getSku(),
                         'item_name' => $item->getName(),
-                        'item_price' => $item->getBasePriceInclTax() * 100,
+                        'item_price' => $item->getPriceInclTax() * 100,
                         'vat_rate' => $item->getTaxPercent() ? $item->getTaxPercent() / 100 : 0
                     ];
                 }
@@ -290,13 +302,14 @@ class UnzerDirectAdapter
         if(isset($paymentArray['operations'])){
             foreach($paymentArray['operations'] as $operation){
                 if($operation['type'] == 'capture' && !empty($operation['qp_status_code'])){
-                    if(in_array($operation['qp_status_code'], $this->errorCodes)){
+                    if(in_array($operation['qp_status_code'], static::$errorCodes)){
                         throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
                     }
                 }
             }
         } else {
-            throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: Error.'));
+            /** IK: we process validation errors from payment gateway */
+            throw new \Magento\Framework\Exception\LocalizedException(new Phrase(__('QuickPay').' '.$this->_generateErrorMessageLine($paymentArray)));
         }
 
         return $this;
@@ -325,13 +338,14 @@ class UnzerDirectAdapter
         if(isset($paymentArray['operations'])){
             foreach($paymentArray['operations'] as $operation){
                 if($operation['type'] == 'cancel' && !empty($operation['qp_status_code'])){
-                    if(in_array($operation['qp_status_code'], $this->errorCodes)){
+                    if(in_array($operation['qp_status_code'], static::$errorCodes)){
                         throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
                     }
                 }
             }
         } else {
-            throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: Error.'));
+            /** IK: we process validation errors from payment gateway */
+            throw new \Magento\Framework\Exception\LocalizedException(new Phrase(__('QuickPay').' '.$this->_generateErrorMessageLine($paymentArray)));
         }
 
         return $this;
@@ -363,13 +377,14 @@ class UnzerDirectAdapter
         if(isset($paymentArray['operations'])){
             foreach($paymentArray['operations'] as $operation){
                 if($operation['type'] == 'refund' && !empty($operation['qp_status_code'])){
-                    if(in_array($operation['qp_status_code'], $this->errorCodes)){
+                    if(in_array($operation['qp_status_code'], static::$errorCodes)){
                         throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
                     }
                 }
             }
         } else {
-            throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: Error.'));
+            /** IK: we process validation errors from payment gateway */
+            throw new \Magento\Framework\Exception\LocalizedException(new Phrase(__('QuickPay').' '.$this->_generateErrorMessageLine($paymentArray)));
         }
 
         return $this;

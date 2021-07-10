@@ -21,6 +21,7 @@
                 <sendmailorderconfirmationbefore>0</sendmailorderconfirmationbefore>
                 <handlestock>1</handlestock>
                 <allowspecific>0</allowspecific>
+                <autocapture_shipment>0</autocapture_shipment>
                 <autocapture>0</autocapture>
                 <transactionfee>0</transactionfee>
                 <specifytransactionfee>0</specifytransactionfee>

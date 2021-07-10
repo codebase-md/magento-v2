@@ -27,7 +27,7 @@ class CaptureOrderInvoiceAfter implements ObserverInterface
         $invoice = $observer->getEvent()->getInvoice();
         $order = $invoice->getOrder();
         $payment = $order->getPayment();
-        if ($payment->getMethod() === \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE) {
+        if (strpos($payment->getMethod(), 'unzerdirect') !== false) {
             $captureCase = $invoice->getRequestedCaptureCase();
             if ($payment->canCapture()) {
                 if ($captureCase == \Magento\Sales\Model\Order\Invoice::CAPTURE_ONLINE) {
