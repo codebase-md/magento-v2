@@ -6,6 +6,8 @@ use Magento\Framework\Event\ObserverInterface;
 
 class SendPaymentEmail implements ObserverInterface
 {
+    const PAYMENT_LINK_EMAIL_XML_PATH = 'payment/unzerdirect_gateway/payment_template';
+
     /**
      * @var UnzerDirect\Gateway\Model\Adapter\UnzerDirectAdapter
      */
@@ -99,8 +101,10 @@ class SendPaymentEmail implements ObserverInterface
             $sentToEmail = $order->getCustomerEmail();
             $sentToName = $order->getCustomerName();
 
+            $templateId = $this->_scopeConfig->getValue(self::PAYMENT_LINK_EMAIL_XML_PATH,\Magento\Store\Model\ScopeInterface::SCOPE_STORE, $order->getStoreId());
+
             $transport = $this->_transportBuilder
-                ->setTemplateIdentifier('unzerdirect_makepayment_email_template')
+                ->setTemplateIdentifier($templateId)
                 ->setTemplateOptions(
                     [
                         'area' => \Magento\Framework\App\Area::AREA_FRONTEND,
@@ -118,12 +122,9 @@ class SendPaymentEmail implements ObserverInterface
             $transport->sendMessage();
 
             $this->_inlineTranslation->resume();
-
         } catch(\Exception $e){
             throw new \Exception($e->getMessage());
         }
-
-
 
     }
 }
