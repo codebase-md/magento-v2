@@ -124,6 +124,27 @@ class UnzerDirectAdapter
     }
 
     /**
+     * Function processes validation errors from payment gateway
+     *
+     * @param array $paymentArray
+     *
+     * @return string
+     */
+    protected function _generateErrorMessageLine($paymentArray){
+        $message = __('Error');
+        if(isset($paymentArray['message']) || isset($paymentArray['errors'])){
+            $message = $paymentArray['message']??__('Error');
+            if(isset($paymentArray['errors']) && is_array($paymentArray['errors'])){
+                $message .= ':';
+                foreach ($paymentArray['errors'] as $_field => $_validationError){
+                    $message .= sprintf(' %s - %s',$_field,  implode(',',$_validationError));
+                }
+            }
+        }
+        return $message;
+    }
+
+    /**
      * create payment link
      *
      * @param array $attributes
