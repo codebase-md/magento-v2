@@ -261,7 +261,7 @@ class UnzerDirectAdapter
                 "cancelurl"          => $this->url->getUrl('unzerdirect/payment/cancel'),
                 "callbackurl"        => $this->url->getUrl('unzerdirect/payment/callback'),
                 "customer_email"     => $order->getCustomerEmail(),
-                "autocapture"        => $this->scopeConfig->isSetFlag(self::AUTOCAPTURE_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
+                "autocapture"        => 0,
                 "payment_methods"    => $paymentMethods,
                 "branding_id"        => $this->scopeConfig->getValue(self::BRANDING_ID_XML_PATH, \Magento\Store\Model\ScopeInterface::SCOPE_STORE),
                 "language"           => $this->getLanguage(),
