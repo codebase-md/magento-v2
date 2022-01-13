@@ -30,6 +30,11 @@ class UnzerDirectAdapter
     const BRANDING_ID_XML_PATH = 'payment/unzerdirect_gateway/branding_id';
     const TEST_MODE_XML_PATH = 'payment/unzerdirect_gateway/testmode';
 
+    const STATUS_ACCEPTED_CODE = 202;
+    const CAPTURE_CODE = 'capture';
+    const REFUND_CODE = 'refund';
+    const CANCEL_CODE = 'cancel';
+
     protected static $errorCodes = [
         '30100',
         '40000',
@@ -321,7 +326,7 @@ class UnzerDirectAdapter
 
         $payments = $client->request->post("/payments/{$transaction}/capture", $form);
 
-        $this->validateResponse($order, $payments);
+        $this->validateResponse($order, $payments, self::CAPTURE_CODE);
 
         return $this;
     }
@@ -343,7 +348,7 @@ class UnzerDirectAdapter
 
         $payments = $client->request->post("/payments/{$transaction}/cancel", $form);
 
-        $this->validateResponse($order, $payments);
+        $this->validateResponse($order, $payments, self::CANCEL_CODE);
 
         return $this;
     }
@@ -368,7 +373,7 @@ class UnzerDirectAdapter
 
         $payments = $client->request->post("/payments/{$transaction}/refund", $form);
 
-        $this->validateResponse($order, $payments);
+        $this->validateResponse($order, $payments, self::REFUND_CODE);
 
         return $this;
     }
@@ -484,29 +489,33 @@ class UnzerDirectAdapter
      * @param $order
      * @param $payments
      */
-    public function validateResponse($order, $payments){
+    public function validateResponse($order, $payments, $type){
         $status = $payments->httpStatus();
 
         $paymentArray = $payments->asArray();
         $this->logger->debug(json_encode($paymentArray));
 
-        if($status != '202'){
-            if($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_KLARNA){
-                throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: payment not captured'));
-            } else {
-                if(isset($paymentArray['operations'])){
-                    foreach($paymentArray['operations'] as $operation){
-                        if($operation['type'] == 'capture' && !empty($operation['qp_status_code'])){
-                            if(in_array($operation['qp_status_code'], static::$errorCodes)){
-                                throw new \Magento\Framework\Exception\LocalizedException(__('UnzerDirect: '.$operation['qp_status_msg']));
-                            }
-                        }
+        if($status != self::STATUS_ACCEPTED_CODE
+            && $order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_KLARNA){
+
+            if($type == self::CAPTURE_CODE){
+                throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: payment not captured'));
+            } elseif($type == self::CAPTURE_REFUND) {
+                throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: payment not refunded'));
+            }
+        }
+
+        if(isset($paymentArray['operations'])){
+            foreach($paymentArray['operations'] as $operation){
+                if(!empty($operation['qp_status_code'])){
+                    if(in_array($operation['qp_status_code'], static::$errorCodes)){
+                        throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: '.$operation['qp_status_msg']));
                     }
-                } else {
-                    /** IK: we process validation errors from payment gateway */
-                    throw new \Magento\Framework\Exception\LocalizedException(new Phrase(__('UnzerDirect').' '.$this->_generateErrorMessageLine($paymentArray)));
                 }
             }
+        } else {
+            /** IK: we process validation errors from payment gateway */
+            throw new \Magento\Framework\Exception\LocalizedException(new Phrase(__('QuickPay').' '.$this->_generateErrorMessageLine($paymentArray)));
         }
     }
 }
