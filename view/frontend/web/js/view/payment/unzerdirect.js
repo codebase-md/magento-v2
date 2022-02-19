@@ -20,6 +20,10 @@ define(
             {
                 type: 'unzerdirect_paypal',
                 component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/paypal'
+            },
+            {
+                type: 'unzerdirect_applepay',
+                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/applepay'
             }
         );
 
