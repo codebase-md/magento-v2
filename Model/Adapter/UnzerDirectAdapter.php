@@ -166,7 +166,7 @@ class UnzerDirectAdapter
 
             $form = [
                 'order_id' => $order->getIncrementId(),
-                'currency' => $order->getOrderCurrency()->ToString(),
+                'currency' => $order->getBaseCurrency()->ToString(),
             ];
 
             if ($textOnStatement = $this->scopeConfig->getValue(self::TEXT_ON_STATEMENT_XML_PATH)) {
@@ -204,7 +204,7 @@ class UnzerDirectAdapter
                 }
 
                 $form['shipping'] = [
-                    'amount' => $order->getShippingInclTax() * 100,
+                    'amount' => $order->getBaseShippingInclTax() * 100,
                     'vat_rate' => $shippingVatRate ? $shippingVatRate / 100 : 0
                 ];
 
@@ -226,14 +226,14 @@ class UnzerDirectAdapter
                 $form['basket'] = [];
                 foreach ($order->getAllVisibleItems() as $item) {
                     $discount = 0;
-                    if ($item->getDiscountAmount()) {
-                        $discount = $item->getDiscountAmount() / $item->getQtyOrdered();
+                    if ($item->getBaseDiscountAmount()) {
+                        $discount = $item->getBaseDiscountAmount() / $item->getQtyOrdered();
                     }
                     $form['basket'][] = [
                         'qty' => (int)$item->getQtyOrdered(),
                         'item_no' => $item->getSku(),
                         'item_name' => $item->getName(),
-                        'item_price' => round($item->getPriceInclTax() - $discount, 2) * 100,
+                        'item_price' => round($item->getBasePriceInclTax() - $discount, 2) * 100,
                         'vat_rate' => $item->getTaxPercent() ? $item->getTaxPercent() / 100 : 0
                     ];
                 }
@@ -267,7 +267,7 @@ class UnzerDirectAdapter
             }
 
             $parameters = [
-                "amount"             => $order->getTotalDue() * 100,
+                "amount"             => $order->getBaseTotalDue() * 100,
                 "continueurl"        => $this->url->getUrl('unzerdirect/payment/returns'),
                 "cancelurl"          => $this->url->getUrl('unzerdirect/payment/cancel'),
                 "callbackurl"        => $this->url->getUrl('unzerdirect/payment/callback'),
@@ -435,7 +435,7 @@ class UnzerDirectAdapter
             $payment = $order->getPayment();
 
             $formatedPrice = $order->getBaseCurrency()->formatTxt(
-                $order->getGrandTotal()
+                $order->getBaseGrandTotal()
             );
 
             $message = '';
@@ -475,7 +475,7 @@ class UnzerDirectAdapter
             $payment->setParentTransactionId($parent_id);
 
             // update totals
-            $amount = $order->getGrandTotal();
+            $amount = $order->getBaseGrandTotal();
             $amount = $payment->formatAmount($amount, true);
             $payment->setBaseAmountAuthorized($amount);
 
@@ -509,7 +509,7 @@ class UnzerDirectAdapter
 
         if(isset($paymentArray['operations'])){
             foreach($paymentArray['operations'] as $operation){
-                if(!empty($operation['qp_status_code'])){
+                if(!empty($operation['qp_status_code']) && $operation['type'] == $type){
                     if(in_array($operation['qp_status_code'], static::$errorCodes)){
                         throw new \Magento\Framework\Exception\LocalizedException(__('QuickPay: '.$operation['qp_status_msg']));
                     }
