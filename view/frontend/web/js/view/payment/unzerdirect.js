@@ -24,6 +24,10 @@ define(
             {
                 type: 'unzerdirect_applepay',
                 component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/applepay'
+            },
+            {
+                type: 'unzerdirect_googlepay',
+                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/googlepay'
             }
         );
 

@@ -12,6 +12,7 @@ final class ConfigProvider implements ConfigProviderInterface
     const CODE_KLARNA = 'unzerdirect_klarna';
     const CODE_APPLEPAY = 'unzerdirect_applepay';
     const CODE_PAYPAL = 'unzerdirect_paypal';
+    const CODE_GOOGLEPAY = 'unzerdirect_googlepay';
 
     const XML_PATH_CARD_LOGO = 'payment/unzerdirect_gateway/cardlogos';
 
@@ -48,6 +49,9 @@ final class ConfigProvider implements ConfigProviderInterface
                 ],
                 self::CODE_PAYPAL => [
                     'paymentLogo' => $this->getPaypalLogo()
+                ],
+                self::CODE_GOOGLEPAY => [
+                    'paymentLogo' => $this->getGooglePayLogo()
                 ]
             ]
         ];
@@ -90,6 +94,14 @@ final class ConfigProvider implements ConfigProviderInterface
         $items = [];
 
         $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/paypal.png");
+
+        return $items;
+    }
+
+    public function getGooglePayLogo(){
+        $items = [];
+
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/googlepay.png");
 
         return $items;
     }
