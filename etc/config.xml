@@ -10,7 +10,7 @@
         <payment>
             <unzerdirect_gateway>
                 <model>UnzerDirect\Gateway\Model\Payment</model>
-                <title>UnzerDirect Payment</title>
+                <title>Payment</title>
                 <active>1</active>
                 <testmode>0</testmode>
                 <order_status>pending_payment</order_status>
@@ -37,7 +37,7 @@
             </unzerdirect_gateway>
             <unzerdirect_klarna>
                 <model>UnzerDirect\Gateway\Model\Klarna</model>
-                <title>UnzerDirect Klarna</title>
+                <title>Klarna</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>3</sort_order>
@@ -55,7 +55,7 @@
             </unzerdirect_klarna>
             <unzerdirect_paypal>
                 <model>UnzerDirect\Gateway\Model\PayPal</model>
-                <title>UnzerDirect PayPal</title>
+                <title>PayPal</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>4</sort_order>
@@ -73,7 +73,7 @@
             </unzerdirect_paypal>
             <unzerdirect_applepay>
                 <model>UnzerDirect\Gateway\Model\ApplePay</model>
-                <title>UnzerDirect Apple Pay</title>
+                <title>Apple Pay</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>9</sort_order>
@@ -91,7 +91,7 @@
             </unzerdirect_applepay>
             <unzerdirect_googlepay>
                 <model>UnzerDirect\Gateway\Model\GooglePay</model>
-                <title>UnzerDirect Google Pay</title>
+                <title>Google Pay</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>9</sort_order>
