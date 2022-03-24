@@ -261,7 +261,7 @@ class UnzerDirectAdapter
             } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
                 $paymentMethods = 'paypal';
             } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_APPLEPAY) {
-                $paymentMethods = 'applepay';
+                $paymentMethods = 'apple-pay';
             } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_GOOGLEPAY) {
                 $paymentMethods = 'google-pay';
             } else {
