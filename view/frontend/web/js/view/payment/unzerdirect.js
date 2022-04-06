@@ -28,6 +28,14 @@ define(
             {
                 type: 'unzerdirect_googlepay',
                 component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/googlepay'
+            },
+            {
+                type: 'unzerdirect_sofort',
+                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/sofort'
+            },
+            {
+                type: 'unzerdirect_invoice',
+                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/invoice'
             }
         );
 

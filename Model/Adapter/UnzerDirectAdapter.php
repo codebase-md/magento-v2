@@ -173,7 +173,8 @@ class UnzerDirectAdapter
                 $form['text_on_statement'] = $textOnStatement;
             }
 
-            if($order->getPayment()->getMethod() != \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL) {
+            if($order->getPayment()->getMethod() != \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_PAYPAL
+                && $order->getPayment()->getMethod() != \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_SOFORT) {
                 $shippingAddress = $order->getShippingAddress();
 
                 $taxItems = $this->taxItem->getTaxItemsByOrderId($order->getId());
@@ -264,6 +265,10 @@ class UnzerDirectAdapter
                 $paymentMethods = 'apple-pay';
             } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_GOOGLEPAY) {
                 $paymentMethods = 'google-pay';
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_SOFORT) {
+                $paymentMethods = 'sofort';
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_INVOICE) {
+                $paymentMethods = 'unzer-pay-later-invoice';
             } else {
                 $paymentMethods = $this->getPaymentMethods();
             }
