@@ -8,6 +8,16 @@ namespace UnzerDirect\Gateway\Model;
 class Invoice extends \Magento\Payment\Model\Method\AbstractMethod
 {
     /**
+     * @var int
+     */
+    protected static $_cartAmountMin = 10;
+
+    /**
+     * @var int
+     */
+    protected static $_cartAmountMax = 3500;
+
+    /**
      * Payment code
      *
      * @var string
@@ -18,6 +28,13 @@ class Invoice extends \Magento\Payment\Model\Method\AbstractMethod
      * @var string
      */
     protected $_title = 'Unzer Direct Invoice';
+
+    /**
+     * @var string[]
+     */
+    protected $_allowCurrencyCode = array(
+        'EUR', 'CHF'
+    );
 
     /**
      * Availability option
@@ -79,6 +96,25 @@ class Invoice extends \Magento\Payment\Model\Method\AbstractMethod
         $lang = $splitted[0];
         if ( isset ( $map_codes[$lang] ) ) return $map_codes[$lang];
         return $lang;
+    }
+
+    /**
+     * @param $quote
+     * @return false
+     */
+    public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
+    {
+        if($quote) {
+            if (!in_array($quote->getBaseCurrencyCode(), $this->_allowCurrencyCode)) {
+                return false;
+            }
+
+            if($quote->getGrandTotal() < self::$_cartAmountMin
+                || $quote->getGrandTotal() > self::$_cartAmountMax) {
+                return false;
+            }
+        }
+        return parent::isAvailable($quote);
     }
 
     /**

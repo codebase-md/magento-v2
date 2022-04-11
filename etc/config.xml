@@ -127,7 +127,7 @@
             </unzerdirect_sofort>
             <unzerdirect_invoice>
                 <model>UnzerDirect\Gateway\Model\Invoice</model>
-                <title>Unzer Direct Invoice</title>
+                <title>Unzer Invoice</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>9</sort_order>

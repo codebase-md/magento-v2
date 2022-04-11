@@ -9,7 +9,7 @@
     <system>
         <section id="payment">
             <group id="unzerdirect_gateway" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>UnzerDirect</label>
+                <label>Unzer Direct</label>
                 <field id="version" translate="label" type="label" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Version</label>
                     <frontend_model>UnzerDirect\Gateway\Model\Config\Source\Version</frontend_model>
@@ -111,7 +111,7 @@
                 </field>
             </group>
             <group id="unzerdirect_klarna" translate="label" type="text" sortOrder="11" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>UnzerDirect Klarna</label>
+                <label>Unzer Direct Klarna</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -138,7 +138,7 @@
                 </field>
             </group>
             <group id="unzerdirect_paypal" translate="label" type="text" sortOrder="15" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>UnzerDirect PayPal</label>
+                <label>Unzer Direct PayPal</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -165,7 +165,7 @@
                 </field>
             </group>
             <group id="unzerdirect_applepay" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>UnzerDirect ApplePay</label>
+                <label>Unzer Direct ApplePay</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -192,7 +192,7 @@
                 </field>
             </group>
             <group id="unzerdirect_googlepay" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>UnzerDirect GooglePay</label>
+                <label>Unzer Direct GooglePay</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -219,7 +219,7 @@
                 </field>
             </group>
             <group id="unzerdirect_sofort" translate="label" type="text" sortOrder="21" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>UnzerDirect Sofort</label>
+                <label>Unzer Direct Sofort</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
@@ -246,7 +246,7 @@
                 </field>
             </group>
             <group id="unzerdirect_invoice" translate="label" type="text" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1">
-                <label>Unzer Direct Invoice</label>
+                <label>Unzer Invoice</label>
                 <attribute type="expanded">1</attribute>
                 <field id="active" translate="label" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enabled</label>
