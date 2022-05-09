@@ -195,4 +195,11 @@ class ApplePay extends \Magento\Payment\Model\Method\AbstractMethod
 
         return $issafari;
     }
+
+    /**
+     * @return string
+     */
+    public function getInstructions(){
+        return trim($this->getConfigData('instructions'));
+    }
 }

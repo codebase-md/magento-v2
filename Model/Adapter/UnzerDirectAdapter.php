@@ -269,6 +269,8 @@ class UnzerDirectAdapter
                 $paymentMethods = 'sofort';
             } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_INVOICE) {
                 $paymentMethods = 'unzer-pay-later-invoice';
+            } elseif($order->getPayment()->getMethod() == \UnzerDirect\Gateway\Model\Ui\ConfigProvider::CODE_DIRECT_DEBIT) {
+                $paymentMethods = 'unzer-pay-later-direct_debit';
             } else {
                 $paymentMethods = $this->getPaymentMethods();
             }
@@ -435,7 +437,7 @@ class UnzerDirectAdapter
      * @param $transactionId
      * @param $type
      */
-    public function createTransaction($order = null, $transactionId, $type)
+    public function createTransaction($order, $transactionId, $type)
     {
         try {
             //get payment object from order object

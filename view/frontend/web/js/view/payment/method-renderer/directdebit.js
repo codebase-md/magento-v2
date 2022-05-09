@@ -31,7 +31,7 @@ define(
             },
 
             getCode: function() {
-                return 'unzerdirect_invoice';
+                return 'unzerdirect_direct_debit';
             },
             getData: function() {
                 return {
@@ -42,10 +42,10 @@ define(
                 unzerDirectRedirect.execute();
             },
             getPaymentLogo: function () {
-                return window.checkoutConfig.payment.unzerdirect_invoice.paymentLogo;
+                return window.checkoutConfig.payment.unzerdirect_direct_debit.paymentLogo;
             },
             getInstructions: function () {
-                return window.checkoutConfig.payment.unzerdirect_invoice.instructions;
+                return window.checkoutConfig.payment.unzerdirect_direct_debit.instructions;
             }
         });
     }

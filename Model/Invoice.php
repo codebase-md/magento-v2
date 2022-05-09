@@ -207,4 +207,11 @@ class Invoice extends \Magento\Payment\Model\Method\AbstractMethod
 
         return $this;
     }
+
+    /**
+     * @return string
+     */
+    public function getInstructions(){
+        return trim($this->getConfigData('instructions'));
+    }
 }

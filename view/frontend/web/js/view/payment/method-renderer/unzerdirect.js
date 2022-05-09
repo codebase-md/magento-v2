@@ -44,6 +44,9 @@ define(
             getPaymentLogo: function () {
                 return window.checkoutConfig.payment.unzerdirect_gateway.paymentLogo;
             },
+            getInstructions: function () {
+                return window.checkoutConfig.payment.unzerdirect_gateway.instructions;
+            }
         });
     }
 );

@@ -5,25 +5,36 @@ namespace UnzerDirect\Gateway\Model;
 /**
  * Pay In Store payment method model
  */
-class Payment extends \Magento\Payment\Model\Method\AbstractMethod
+class DirectDebit extends \Magento\Payment\Model\Method\AbstractMethod
 {
+    /**
+     * @var int
+     */
+    protected static $_cartAmountMin = 10;
+
+    /**
+     * @var int
+     */
+    protected static $_cartAmountMax = 3500;
+
     /**
      * Payment code
      *
      * @var string
      */
-    protected $_code = 'unzerdirect_gateway';
+    protected $_code = 'unzerdirect_direct_debit';
 
     /**
      * @var string
      */
-    protected $_title = 'UnzerDirect';
+    protected $_title = 'Unzer Direct Debit';
 
     /**
-     * Availability option
-     *
-     * @var bool
+     * @var string[]
      */
+    protected $_allowCurrencyCode = array(
+        'EUR'
+    );
 
     /**
      * @var bool
@@ -79,6 +90,25 @@ class Payment extends \Magento\Payment\Model\Method\AbstractMethod
         $lang = $splitted[0];
         if ( isset ( $map_codes[$lang] ) ) return $map_codes[$lang];
         return $lang;
+    }
+
+    /**
+     * @param $quote
+     * @return false
+     */
+    public function isAvailable(\Magento\Quote\Api\Data\CartInterface $quote = null)
+    {
+        if($quote) {
+            if (!in_array($quote->getBaseCurrencyCode(), $this->_allowCurrencyCode)) {
+                return false;
+            }
+
+            if($quote->getGrandTotal() < self::$_cartAmountMin
+                || $quote->getGrandTotal() > self::$_cartAmountMax) {
+                return false;
+            }
+        }
+        return parent::isAvailable($quote);
     }
 
     /**

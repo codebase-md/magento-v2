@@ -10,7 +10,7 @@
         <payment>
             <unzerdirect_gateway>
                 <model>UnzerDirect\Gateway\Model\Payment</model>
-                <title>Payment</title>
+                <title>Credit card</title>
                 <active>1</active>
                 <testmode>0</testmode>
                 <order_status>pending_payment</order_status>
@@ -34,13 +34,14 @@
                 <can_refund>1</can_refund>
                 <apikey backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
                 <private_key backend_model="Magento\Config\Model\Config\Backend\Encrypted" />
+                <instructions>Pay with Visa, Mastercard or Maestro card</instructions>
             </unzerdirect_gateway>
             <unzerdirect_klarna>
                 <model>UnzerDirect\Gateway\Model\Klarna</model>
                 <title>Klarna</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
-                <sort_order>3</sort_order>
+                <sort_order>8</sort_order>
                 <handlestock>1</handlestock>
                 <allowspecific>0</allowspecific>
                 <autocapture>0</autocapture>
@@ -52,10 +53,49 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
+                <instructions>Pay with Klarna Invoice, Klarna Direct Debit or Klarna Instalments</instructions>
             </unzerdirect_klarna>
             <unzerdirect_paypal>
                 <model>UnzerDirect\Gateway\Model\PayPal</model>
                 <title>PayPal</title>
+                <active>0</active>
+                <order_status>pending_payment</order_status>
+                <sort_order>7</sort_order>
+                <handlestock>1</handlestock>
+                <allowspecific>0</allowspecific>
+                <autocapture>0</autocapture>
+                <transactionfee>0</transactionfee>
+                <specifytransactionfee>0</specifytransactionfee>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_refund>1</can_refund>
+                <instructions>Pay with PayPal</instructions>
+            </unzerdirect_paypal>
+            <unzerdirect_applepay>
+                <model>UnzerDirect\Gateway\Model\ApplePay</model>
+                <title>Apple Pay</title>
+                <active>0</active>
+                <order_status>pending_payment</order_status>
+                <sort_order>5</sort_order>
+                <handlestock>1</handlestock>
+                <allowspecific>0</allowspecific>
+                <autocapture>0</autocapture>
+                <transactionfee>0</transactionfee>
+                <specifytransactionfee>0</specifytransactionfee>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_refund>1</can_refund>
+                <instructions>Pay with your Apple device</instructions>
+            </unzerdirect_applepay>
+            <unzerdirect_googlepay>
+                <model>UnzerDirect\Gateway\Model\GooglePay</model>
+                <title>Google Pay</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
                 <sort_order>4</sort_order>
@@ -70,49 +110,14 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
-            </unzerdirect_paypal>
-            <unzerdirect_applepay>
-                <model>UnzerDirect\Gateway\Model\ApplePay</model>
-                <title>Apple Pay</title>
-                <active>0</active>
-                <order_status>pending_payment</order_status>
-                <sort_order>9</sort_order>
-                <handlestock>1</handlestock>
-                <allowspecific>0</allowspecific>
-                <autocapture>0</autocapture>
-                <transactionfee>0</transactionfee>
-                <specifytransactionfee>0</specifytransactionfee>
-                <can_use_checkout>1</can_use_checkout>
-                <can_authorize>1</can_authorize>
-                <can_capture>1</can_capture>
-                <can_void>1</can_void>
-                <can_cancel>1</can_cancel>
-                <can_refund>1</can_refund>
-            </unzerdirect_applepay>
-            <unzerdirect_googlepay>
-                <model>UnzerDirect\Gateway\Model\GooglePay</model>
-                <title>Google Pay</title>
-                <active>0</active>
-                <order_status>pending_payment</order_status>
-                <sort_order>9</sort_order>
-                <handlestock>1</handlestock>
-                <allowspecific>0</allowspecific>
-                <autocapture>0</autocapture>
-                <transactionfee>0</transactionfee>
-                <specifytransactionfee>0</specifytransactionfee>
-                <can_use_checkout>1</can_use_checkout>
-                <can_authorize>1</can_authorize>
-                <can_capture>1</can_capture>
-                <can_void>1</can_void>
-                <can_cancel>1</can_cancel>
-                <can_refund>1</can_refund>
+                <instructions>Pay with Google Pay</instructions>
             </unzerdirect_googlepay>
             <unzerdirect_sofort>
                 <model>UnzerDirect\Gateway\Model\Sofort</model>
                 <title>Sofort</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
-                <sort_order>9</sort_order>
+                <sort_order>6</sort_order>
                 <handlestock>1</handlestock>
                 <allowspecific>0</allowspecific>
                 <autocapture>0</autocapture>
@@ -124,13 +129,14 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
+                <instructions>Pay with SOFORT Banking</instructions>
             </unzerdirect_sofort>
             <unzerdirect_invoice>
                 <model>UnzerDirect\Gateway\Model\Invoice</model>
                 <title>Unzer Invoice</title>
                 <active>0</active>
                 <order_status>pending_payment</order_status>
-                <sort_order>9</sort_order>
+                <sort_order>2</sort_order>
                 <handlestock>1</handlestock>
                 <allowspecific>0</allowspecific>
                 <autocapture>0</autocapture>
@@ -142,7 +148,27 @@
                 <can_void>1</can_void>
                 <can_cancel>1</can_cancel>
                 <can_refund>1</can_refund>
+                <instructions>Pay 14 days after delivery</instructions>
             </unzerdirect_invoice>
+            <unzerdirect_direct_debit>
+                <model>UnzerDirect\Gateway\Model\DirectDebit</model>
+                <title>Unzer Direct Debit</title>
+                <active>0</active>
+                <order_status>pending_payment</order_status>
+                <sort_order>3</sort_order>
+                <handlestock>1</handlestock>
+                <allowspecific>0</allowspecific>
+                <autocapture>0</autocapture>
+                <transactionfee>0</transactionfee>
+                <specifytransactionfee>0</specifytransactionfee>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>1</can_capture>
+                <can_void>1</can_void>
+                <can_cancel>1</can_cancel>
+                <can_refund>1</can_refund>
+                <instructions>Pay directly from your bank account</instructions>
+            </unzerdirect_direct_debit>
         </payment>
     </default>
 </config>

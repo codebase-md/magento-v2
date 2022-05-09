@@ -17,24 +17,12 @@ class PaymentLogo implements \Magento\Framework\Option\ArrayInterface
                 'label' => __('VISA')
             ],
             [
-                'value' => 'visaelectron',
-                'label' => __('VISA Electron')
-            ],
-            [
                 'value' => 'mastercard',
                 'label' => __('MasterCard')
             ],
             [
                 'value' => 'maestro',
                 'label' => __('Maestro')
-            ],
-            [
-                'value' => 'paypal',
-                'label' => __('Paypal')
-            ],
-            [
-                'value' => 'applepay',
-                'label' => __('Apple Pay')
             ]
         ];
     }

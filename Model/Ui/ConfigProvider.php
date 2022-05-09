@@ -15,6 +15,7 @@ final class ConfigProvider implements ConfigProviderInterface
     const CODE_GOOGLEPAY = 'unzerdirect_googlepay';
     const CODE_SOFORT = 'unzerdirect_sofort';
     const CODE_INVOICE = 'unzerdirect_invoice';
+    const CODE_DIRECT_DEBIT = 'unzerdirect_direct_debit';
 
     const XML_PATH_CARD_LOGO = 'payment/unzerdirect_gateway/cardlogos';
 
@@ -28,25 +29,40 @@ final class ConfigProvider implements ConfigProviderInterface
      */
     protected $assetRepo;
 
-
     /**
      * @var \Magento\Framework\Locale\Resolver
      */
     protected $localeResolver;
 
     /**
+     * @var \Magento\Payment\Helper\Data
+     */
+    protected $paymentHelper;
+
+    /**
+     * @var \Magento\Framework\Escaper
+     */
+    protected $escaper;
+
+    /**
      * @param \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig
      * @param \Magento\Framework\View\Asset\Repository $assetRepo
      * @param \Magento\Framework\Locale\Resolver $localeResolver
+     * @param \Magento\Payment\Helper\Data $paymentHelper
+     * @param \Magento\Framework\Escaper $escaper
      */
     public function __construct(
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \Magento\Framework\View\Asset\Repository $assetRepo,
-        \Magento\Framework\Locale\Resolver $localeResolver
+        \Magento\Framework\Locale\Resolver $localeResolver,
+        \Magento\Payment\Helper\Data $paymentHelper,
+        \Magento\Framework\Escaper $escaper
     ){
         $this->scopeConfig = $scopeConfig;
         $this->assetRepo = $assetRepo;
         $this->localeResolver = $localeResolver;
+        $this->paymentHelper = $paymentHelper;
+        $this->escaper = $escaper;
     }
 
     /**
@@ -60,40 +76,54 @@ final class ConfigProvider implements ConfigProviderInterface
             'payment' => [
                 self::CODE => [
                     'redirectUrl' => 'unzerdirect/payment/redirect',
-                    'paymentLogo' => $this->getUnzerDirectCardLogo()
+                    'paymentLogo' => $this->getUnzerDirectCardLogo(),
+                    'instructions' => $this->getInstructions(self::CODE)
                 ],
                 self::CODE_KLARNA => [
-                    'paymentLogo' => $this->getKlarnaLogo()
+                    'paymentLogo' => $this->getKlarnaLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_KLARNA)
                 ],
                 self::CODE_APPLEPAY => [
-                    'paymentLogo' => $this->getApplePayLogo()
+                    'paymentLogo' => $this->getApplePayLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_APPLEPAY)
                 ],
                 self::CODE_PAYPAL => [
-                    'paymentLogo' => $this->getPaypalLogo()
+                    'paymentLogo' => $this->getPaypalLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_PAYPAL)
                 ],
                 self::CODE_GOOGLEPAY => [
-                    'paymentLogo' => $this->getGooglePayLogo()
+                    'paymentLogo' => $this->getGooglePayLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_GOOGLEPAY)
                 ],
                 self::CODE_SOFORT => [
-                    'paymentLogo' => $this->getSofortLogo()
+                    'paymentLogo' => $this->getSofortLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_SOFORT)
                 ],
                 self::CODE_INVOICE => [
-                    'paymentLogo' => $this->getInvoiceLogo()
+                    'paymentLogo' => $this->getInvoiceLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_INVOICE)
+                ],
+                self::CODE_DIRECT_DEBIT => [
+                    'paymentLogo' => $this->getDirectDebitLogo(),
+                    'instructions' => $this->getInstructions(self::CODE_DIRECT_DEBIT)
                 ]
             ]
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getUnzerDirectCardLogo(){
         $storeScope = \Magento\Store\Model\ScopeInterface::SCOPE_STORE;
-        $cards = explode(',', $this->scopeConfig->getValue(self::XML_PATH_CARD_LOGO, $storeScope));
+        $cards = explode(',', $this->scopeConfig->getValue(self::XML_PATH_CARD_LOGO, $storeScope) ?? '');
 
         $items = [];
 
         if(count($cards)) {
             foreach ($cards as $card) {
                 if($card) {
-                    $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/logo/{$card}.png");
+                    $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/logo/{$card}.svg");
                 }
             }
         }
@@ -101,38 +131,53 @@ final class ConfigProvider implements ConfigProviderInterface
         return $items;
     }
 
+    /**
+     * @return array
+     */
     public function getKlarnaLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/klarna.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/klarna.svg");
 
         return $items;
     }
 
+    /**
+     * @return array
+     */
     public function getApplePayLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/applepay.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/apple-pay.svg");
 
         return $items;
     }
 
+    /**
+     * @return array
+     */
     public function getPaypalLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/paypal.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/paypal.svg");
 
         return $items;
     }
 
+    /**
+     * @return array
+     */
     public function getGooglePayLogo(){
         $items = [];
 
-        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/googlepay.png");
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/google-pay.svg");
 
         return $items;
     }
 
+    /**
+     * @return array
+     */
     public function getSofortLogo(){
         $items = [];
 
@@ -141,22 +186,48 @@ final class ConfigProvider implements ConfigProviderInterface
         return $items;
     }
 
+    /**
+     * @return array
+     */
     public function getInvoiceLogo(){
         $items = [];
 
-        $locale = $this->getCurrentLocale();
+        /*$locale = $this->getCurrentLocale();
         if($locale == 'de'){
             $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/invoice_de.svg");
         } else {
             $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/invoice_en.svg");
-        }
+        }*/
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/unzer.svg");
 
         return $items;
     }
 
+    /**
+     * @return array
+     */
+    public function getDirectDebitLogo(){
+        $items = [];
+
+        $items[] = $this->assetRepo->getUrl("UnzerDirect_Gateway::images/unzer.svg");
+
+        return $items;
+    }
+
+    /**
+     * @return false|string
+     */
     public function getCurrentLocale(){
         $currentLocaleCode = $this->localeResolver->getLocale();
         $languageCode = strstr($currentLocaleCode, '_', true);
         return $languageCode;
+    }
+
+    /**
+     * @param $code
+     * @return string
+     */
+    protected function getInstructions($code){
+        return nl2br($this->escaper->escapeHtml($this->paymentHelper->getMethodInstance($code)->getInstructions()));
     }
 }

@@ -195,4 +195,11 @@ class GooglePay extends \Magento\Payment\Model\Method\AbstractMethod
 
         return $ischrome;
     }
+
+    /**
+     * @return string
+     */
+    public function getInstructions(){
+        return trim($this->getConfigData('instructions'));
+    }
 }

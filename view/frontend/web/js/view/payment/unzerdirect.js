@@ -36,6 +36,10 @@ define(
             {
                 type: 'unzerdirect_invoice',
                 component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/invoice'
+            },
+            {
+                type: 'unzerdirect_direct_debit',
+                component: 'UnzerDirect_Gateway/js/view/payment/method-renderer/directdebit'
             }
         );
 
